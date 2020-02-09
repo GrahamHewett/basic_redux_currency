@@ -1,4 +1,7 @@
-import { createStore } from "redux";
+import { createStore, applyMiddleware  } from "redux";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
+
 /**
  * This is a reducer, a pure function with (state, action) => state signature.
  * It describes how an action transforms the state into the next state.
@@ -30,6 +33,7 @@ function amountReducer(state = defaultState, action) {
 }
 // Create a Redux store holding the state of your app.
 // Its API is { subscribe, dispatch, getState }.
-let store = createStore(amountReducer)
+let store = createStore(amountReducer, applyMiddleware(thunk, logger))
+// logger middleware must be last
 
 export default store;
