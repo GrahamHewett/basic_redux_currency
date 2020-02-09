@@ -1,15 +1,20 @@
 import React from 'react'
-import store from '../store/configureStore'
+import { connect } from "react-redux";
 
 function Currencyconversion(props) {
+  console.log("props", props)
   return (
     <>
       <h1>BaseAmount = {props.baseAmount}</h1>
       <h1>Counter = {props.counter}</h1>
-      <button onClick={() => store.dispatch({ type: 'INCREMENT' })}>INCREMENT</button>
-      <button onClick={() => store.dispatch({type: "DECREMENT"})}>DECREMENT</button>
+      <button onClick={() => props.dispatch({ type: 'INCREMENT' })}>INCREMENT</button>
+      <button onClick={() => props.dispatch({type: "DECREMENT"})}>DECREMENT</button>
     </>
   )
 }
 
-export default Currencyconversion
+export default connect((state, props) => {
+  console.log("connect state ", state)
+  console.log("connect props ", props)
+  return {baseAmount: state.baseAmount, counter: state.counter}
+})(Currencyconversion)
